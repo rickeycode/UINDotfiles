@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Stop script if errors occur
@@ -15,6 +14,8 @@ if ! is_osx; then
     log_fail "error: this script is only supported with osx"
     exit 1
 fi
+
+source "$DOTPATH"/.bash_profile
 
 if has "brew"; then
     if ! brew tap Homebrew/bundle; then
