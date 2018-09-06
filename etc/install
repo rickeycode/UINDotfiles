@@ -552,7 +552,7 @@ dotfiles_deploy() {
 }
 
 dotfiles_initialize() {
-    if [ "$0" = "init" ] || [ -n "$0" -a -n "$1" ]; then
+    if [ "$0" = "init" -o -n "$0"]; then
         e_newline
         e_header "Initializing dotfiles..."
 
