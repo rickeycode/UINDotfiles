@@ -552,8 +552,7 @@ dotfiles_deploy() {
 }
 
 dotfiles_initialize() {
-    echo "initializse name: $0 attr: $1"
-    if [ "$1" = "init" ]; then
+    # if [ "$0" = "init" ]; then
 	echo "in!"
         e_newline
         e_header "Initializing dotfiles..."
@@ -573,7 +572,7 @@ dotfiles_initialize() {
         fi &&
 
             e_newline && e_done "Initialize"
-    fi
+    # fi
 }
 
 # A script for the file named "install"
