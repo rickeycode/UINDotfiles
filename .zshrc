@@ -6,7 +6,11 @@
 #                         
 #
 
-j
+# Set DOTPATH as default variable
+if [ -z "${DOTPATH:-}" ]; then
+    DOTPATH=~/UINDotfiles; export DOTPATH
+fi
+
 umask 022
 limit coredumpsize 0
 bindkey -d
@@ -58,6 +62,8 @@ export VITAL_PATH="$DOTPATH/etc/lib/vital.sh"
 if [[ -f $VITAL_PATH ]]; then
     source "$VITAL_PATH"
 fi
+
+vitalize
 
 # Check whether the vital file is loaded
 if ! vitalize 2>/dev/null; then
@@ -160,11 +166,11 @@ setup_bundles() {
             for p in ${antigen_plugins[@]}
             do
                 echo "checking... $p" | e_indent 2
-                antigen-bundle "$p"
+                antigen bundle "$p"
             done
 
             # apply antigen
-            antigen-apply && e_done "Ready"
+            antigen apply && e_done "Ready"
         else
             bundle_install
         fi
