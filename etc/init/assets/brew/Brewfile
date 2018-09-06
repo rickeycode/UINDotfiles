@@ -1,7 +1,4 @@
 tap 'homebrew/bundle'
-tap 'caskroom/cask'
-
-cask_args appdir: "/Applications"
 
 # Brewfile
 brew 'git'
@@ -12,11 +9,5 @@ brew 'peco'
 brew 'python'
 brew 'tmux'
 brew 'tree'
-
-# cask
-cask 'google-chrome'
-cask 'slack'
-cask 'github'
-cask 'atom'
 
 # vim: ft=conf
