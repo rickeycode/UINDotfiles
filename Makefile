@@ -18,31 +18,25 @@ list:
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 deploy:
-	echo "deplaying..."
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 init:
-	echo "initializing..."
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init/init.sh
 
 update:
-	echo "updating..."
 	git pull origin master
 
 save:
-	echo "saving..."
 	git add --all
 	git commit -a -m "update from makefile"
 	git push origin master
 
 install: update deploy init
-	echo "installing..."
 	@exec $$SHELL
 
 clean:
-	echo "cleaning..."
 	@echo 'Remove dot files in your home directory...'
 	@-$(foreach val, $(DOTFILES), rm -vrf $(HOME)/$(val);)
 	-rm -rf $(DOTPATH)
