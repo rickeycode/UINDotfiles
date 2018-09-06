@@ -43,6 +43,8 @@ autoload     run-help-svn
 # It is necessary for the setting of DOTPATH
 [ -f ~/.path ] && source ~/.path
 
+source "$DOTPATH"/.bash_profile
+
 # DOTPATH environment variable specifies the location of dotfiles.
 # On Unix, the value is a colon-separated string. On Windows,
 # it is not yet supported.
@@ -247,8 +249,10 @@ tmux_automatically_attach() {
 
 #### public
 zshrc_startup() {
+
     # tmux_automatically_attach attachs tmux session automatically when your are in zsh
     tmux_automatically_attach
+
     # setup_bundles return true if antigen plugins and some modules are valid
     setup_bundles || return 1
 
