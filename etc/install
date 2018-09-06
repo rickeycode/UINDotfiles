@@ -552,7 +552,7 @@ dotfiles_deploy() {
 }
 
 dotfiles_initialize() {
-    echo "initializse $1"
+    echo "initializse name: $0 attr: $1"
     if [ "$1" = "init" ]; then
 	echo "in!"
         e_newline
