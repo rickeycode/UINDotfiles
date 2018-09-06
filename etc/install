@@ -552,8 +552,6 @@ dotfiles_deploy() {
 }
 
 dotfiles_initialize() {
-    echo $0
-    echo $1
     if [ "$0" = "init" -o -n "$0" ]; then
         e_newline
         e_header "Initializing dotfiles..."
