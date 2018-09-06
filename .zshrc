@@ -6,6 +6,7 @@
 #                         
 #
 
+
 # Set DOTPATH as default variable
 if [ -z "${DOTPATH:-}" ]; then
     DOTPATH=~/UINDotfiles; export DOTPATH
