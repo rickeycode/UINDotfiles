@@ -553,7 +553,6 @@ dotfiles_deploy() {
 
 dotfiles_initialize() {
     # if [ "$0" = "init" ]; then
-	echo "in!"
         e_newline
         e_header "Initializing dotfiles..."
 
