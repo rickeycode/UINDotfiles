@@ -27,6 +27,9 @@ if ! has "ruby"; then
 fi
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+source "$DOTPATH"/.bash_profile
+
 if has "brew"; then
     brew doctor
 else
