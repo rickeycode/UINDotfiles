@@ -51,7 +51,7 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     Plug 'nanotech/jellybeans.vim'
 
     Plug 'plasticboy/vim-markdown',      { 'for': 'markdown' }
-    Plug 'shawncplus/phpcomplete.vim'
+    " Plug 'shawncplus/phpcomplete.vim'
     Plug 'm2mdas/phpcomplete-extended'     " enabled command
 
     Plug 'b4b4r07/vim-unicode'
