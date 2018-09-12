@@ -468,7 +468,7 @@ path_remove() {
 
 # Set DOTPATH as default variable
 if [ -z "${DOTPATH:-}" ]; then
-    DOTPATH=~/.dotfiles; export DOTPATH
+    DOTPATH=~/UINDotfiles; export DOTPATH
 fi
 
 DOTFILES_GITHUB="https://github.com/uin010bm/UINDotfiles.git"; export DOTFILES_GITHUB
