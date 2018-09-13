@@ -61,8 +61,7 @@ if ! contains "${SHELL:-}" "zsh"; then
 
     # Check /etc/shells
     if ! grep -xq "${zsh_path:=/bin/zsh}" /etc/shells; then
-        log_fail "oh, you should append '$zsh_path' to /etc/shells"
-        exit 1
+        sudo sh -c "echo $zsh_path >> /etc/shells"
     fi
 
     if [ -x "$zsh_path" ]; then
