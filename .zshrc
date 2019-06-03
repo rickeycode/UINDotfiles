@@ -6,7 +6,6 @@
 #                         
 #
 
-
 # Set DOTPATH as default variable
 if [ -z "${DOTPATH:-}" ]; then
     DOTPATH=~/UINDotfiles; export DOTPATH
@@ -36,9 +35,9 @@ autoload -Uz terminfo
 autoload -Uz vcs_info
 autoload -Uz zcalc
 autoload -Uz zmv
-autoload     run-help-git
-autoload     run-help-svk
-autoload     run-help-svn
+autoload run-help-git
+autoload run-help-svk
+autoload run-help-svn
 
 # It is necessary for the setting of DOTPATH
 [ -f ~/.path ] && source ~/.path
@@ -108,6 +107,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # LS
 export LSCOLORS=exfxcxdxbxegedabagacad
 
+
 antigen=~/.antigen
 antigen_plugins=(
 "brew"
@@ -115,6 +115,9 @@ antigen_plugins=(
 "zsh-users/zsh-history-substring-search"
 "zsh-users/zsh-syntax-highlighting"
 )
+
+export POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+
 
 setup_bundles() {
     echo "$fg[blue]Starting $SHELL....$reset_color"
@@ -171,6 +174,9 @@ setup_bundles() {
                 echo "checking... $p" | e_indent 2
                 antigen bundle "$p"
             done
+
+            #theme
+            antigen theme bhilburn/powerlevel9k powerlevel9k
 
             # apply antigen
             antigen apply && e_done "Ready"
@@ -619,7 +625,7 @@ zshrc_alias() {
 if zshrc_startup; then
     zshrc_setopt
     zshrc_keybind
-    zshrc_prompt
+    #zshrc_prompt
     zshrc_comp
     zshrc_alias
 fi
@@ -637,6 +643,34 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
+
+#### prompt setting
+#
+export TERM="xterm-256color"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_MODE='awesome-patched'
+
+export FONTS_SH_PATH="$DOTPATH/etc/fonts/SourceCodePro+Powerline+Awesome+Regular.sh"
+if [[ -f $FONTS_SH_PATH ]]; then
+    source "$FONTS_SH_PATH"
+fi
+
+POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="white"
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_TIME_BACKGROUND="black"
+POWERLEVEL9K_TIME_FOREGROUND="249"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M} \uE12E"
+POWERLEVEL9K_COLOR_SCHEME='light'
+POWERLEVEL9K_FOLDER_ICON='\uE818'
+POWERLEVEL9K_HOME_ICON='\uE12C'
+POWERLEVEL9K_HOME_SUB_ICON='\uE88D'
+POWERLEVEL9K_VCS_GIT_ICON='\uE1AA'
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uE1AA'
+
 # chpwd function is called after cd command
 chpwd() {
     ls -F
@@ -649,6 +683,4 @@ reload() {
     unfunction $f:t 2>/dev/null
     autoload -U $f:t
 }
-
-# vim:fdm=marker fdc=3 ft=zsh ts=4 sw=4 sts=4:
 
