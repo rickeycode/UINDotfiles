@@ -111,12 +111,12 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 antigen=~/.antigen
 antigen_plugins=(
 "brew"
+"git"
+"fzf"
 "zsh-users/zsh-completions"
 "zsh-users/zsh-history-substring-search"
 "zsh-users/zsh-syntax-highlighting"
 )
-
-export POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 
 
 setup_bundles() {
@@ -175,8 +175,10 @@ setup_bundles() {
                 antigen bundle "$p"
             done
 
+            antigen use oh-my-zsh
+
             #theme
-            antigen theme bhilburn/powerlevel9k powerlevel9k
+            antigen theme agnoster
 
             # apply antigen
             antigen apply && e_done "Ready"
@@ -202,11 +204,6 @@ tmux_automatically_attach() {
                     echo ""
                 fi
             else
-                echo "$fg_bold[red] _____ __  __ _   ___  __ $reset_color"
-                echo "$fg_bold[red]|_   _|  \/  | | | \ \/ / $reset_color"
-                echo "$fg_bold[red]  | | | |\/| | | | |\  /  $reset_color"
-                echo "$fg_bold[red]  | | | |  | | |_| |/  \  $reset_color"
-                echo "$fg_bold[red]  |_| |_|  |_|\___//_/\_\ $reset_color"
             fi
             export DISPLAY="$TMUX"
         elif is_screen_running; then
@@ -278,6 +275,10 @@ zshrc_keybind() {
     bindkey -M vicmd '/'     vi-history-search-forward
     bindkey -M vicmd '?'     vi-history-search-backward
 
+    # history search
+    #bindkey '^P' history-beginning-search-backward
+    bindkey '^N' history-beginning-search-forward
+
 
     # Ctrl-T: start tmux mode
     start-tmux-if-it-is-not-already-started() {
@@ -293,32 +294,13 @@ zshrc_keybind() {
         bindkey '^T' start-tmux-if-it-is-not-already-started
     fi
 
-
-    # Ctrl-R: select command history
-    peco-select-history() {
-        if true; then
-            BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | fzf --query "$LBUFFER")
-
-            CURSOR=${#BUFFER}
-            #zle accept-line
-            zle clear-screen
-        else
-            if is-at-least 4.3.9; then
-                zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
-            else
-                history-incremental-search-backward
-            fi
-        fi
-    }
-    zle -N peco-select-history
-    bindkey '^r' peco-select-history
-
-
     # bind k and j for VI mode
     has 'history-substring-search-up' &&
         bindkey -M vicmd 'k' history-substring-search-up
     has 'history-substring-search-down' &&
         bindkey -M vicmd 'j' history-substring-search-down
+
+    export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 }
 
 
@@ -493,72 +475,6 @@ zshrc_setopt()
 }
 
 
-#### prompt
-zshrc_prompt() {
-    # PROMPT
-    #
-    terminfo_down_sc=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
-    left_down_prompt_preexec() {
-        print -rn -- $terminfo[el]
-    }
-    add-zsh-hook preexec left_down_prompt_preexec
-    function zle-keymap-select zle-line-init zle-line-finish {
-    case $KEYMAP in
-        main|viins)
-            PROMPT_2="$fg[black]-- INSERT --$reset_color"
-            ;;
-        vicmd)
-            PROMPT_2="$fg[white]-- NORMAL --$reset_color"
-            ;;
-        vivis|vivli)
-            PROMPT_2="$fg[yellow]-- VISUAL --$reset_color"
-            ;;
-        virep)
-            PROMPT_2="$fg[red]-- REPLACE --$reset_color"
-            ;;
-    esac
-    PROMPT="%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}[%(?.%{${fg[green]}%}.%{${fg[red]}%})${HOST}%{${reset_color}%}]%# "
-    zle reset-prompt
-}
-
-## add prompt function
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
-zle -N edit-command-line
-
-## set def prompt
-PROMPT="%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}[%(?.%{${fg[green]}%}.%{${fg[red]}%})${HOST}%{${reset_color}%}]%# "
-
-## Right PROMPT
-#
-setopt prompt_subst
-# Automatically hidden rprompt
-# however, 
-setopt transient_rprompt
-
-r-prompt() {
-    if has '__git_ps1'; then
-        export GIT_PS1_SHOWDIRTYSTATE=1
-        export GIT_PS1_SHOWSTASHSTATE=1
-        export GIT_PS1_SHOWUNTRACKEDFILES=1
-        export GIT_PS1_SHOWUPSTREAM="auto"
-        export GIT_PS1_DESCRIBE_STYLE="branch"
-        export GIT_PS1_SHOWCOLORHINTS=0
-        RPROMPT='%{'${fg[red]}'%}'`echo $(__git_ps1 "(%s)")|sed -e s/%/%%/|sed -e s/%%%/%%/|sed -e 's/\\$/\\\\$/'`'%{'${reset_color}'%}'
-        RPROMPT+=$' at %{${fg[blue]}%}[%~]%{${reset_color}%}'
-        RPROMPT+='${p_buffer_stack}'
-    else
-        RPROMPT='[%{$fg[blue]%}%~%{$reset_color%}]'
-    fi
-}
-add-zsh-hook precmd r-prompt
-
-## Other PROMPT
-#J
-SPROMPT="%{${fg[red]}%}Did you mean?: %R -> %r [nyae]? %{${reset_color}%}"
-}
-
 
 #### zsh-comp setting
 zshrc_comp() {
@@ -569,7 +485,7 @@ zshrc_comp() {
     setopt interactive_comments
     setopt magic_equal_subst
     setopt complete_in_word
-    setopt always_last_prompt
+    #setopt always_last_prompt
     setopt globdots
 
     # Important
@@ -643,33 +559,6 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
-
-#### prompt setting
-#
-export TERM="xterm-256color"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE='awesome-patched'
-
-export FONTS_SH_PATH="$DOTPATH/etc/fonts/SourceCodePro+Powerline+Awesome+Regular.sh"
-if [[ -f $FONTS_SH_PATH ]]; then
-    source "$FONTS_SH_PATH"
-fi
-
-POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="white"
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M} \uE12E"
-POWERLEVEL9K_COLOR_SCHEME='light'
-POWERLEVEL9K_FOLDER_ICON='\uE818'
-POWERLEVEL9K_HOME_ICON='\uE12C'
-POWERLEVEL9K_HOME_SUB_ICON='\uE88D'
-POWERLEVEL9K_VCS_GIT_ICON='\uE1AA'
-POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uE1AA'
 
 # chpwd function is called after cd command
 chpwd() {
