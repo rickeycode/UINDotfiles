@@ -9,3 +9,5 @@ view
 .DS_Store
 **/.DS_Store
 signs
+autoload
+ftplugin
