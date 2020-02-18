@@ -1,6 +1,7 @@
 tap 'homebrew/bundle'
 
 # Brewfile
+brew 'anyenv'
 brew 'git'
 brew 'vim'
 brew 'zsh'
@@ -10,5 +11,7 @@ brew 'bat'
 brew 'python'
 brew 'tmux'
 brew 'tree'
+brew 'jq'
+brew 'yarn'
 
 # vim: ft=conf
