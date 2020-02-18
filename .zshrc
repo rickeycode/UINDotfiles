@@ -76,6 +76,8 @@ fi
 # PATH
 export GOPATH="$HOME"
 export PATH="$GOPATH"/bin:/usr/local/bin/"$PATH"
+export PATH="$GOPATH"/.rbenv/bin:"$PATH" 
+eval "$(rbenv init - zsh)"
 
 # LANGUAGE must be set by en_US
 export LANGUAGE="en_US.UTF-8"
@@ -111,7 +113,9 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 antigen=~/.antigen
 antigen_plugins=(
 "brew"
+"bundler"
 "git"
+"ruby"
 "fzf"
 "zsh-users/zsh-completions"
 "zsh-users/zsh-history-substring-search"
@@ -514,12 +518,12 @@ zshrc_comp() {
     zstyle ':completion:*:manuals' separate-sections true
 
     # Menu select
-    zmodload -i zsh/complist
-    bindkey -M menuselect '^h' vi-backward-char
-    bindkey -M menuselect '^j' vi-down-line-or-history
-    bindkey -M menuselect '^k' vi-up-line-or-history
-    bindkey -M menuselect '^l' vi-forward-char
-    #bindkey -M menuselect '^k' accept-and-infer-next-history
+    # zmodload -i zsh/complist
+    # bindkey -M menuselect '^h' vi-backward-char
+    # bindkey -M menuselect '^j' vi-down-line-or-history
+    # bindkey -M menuselect '^k' vi-up-line-or-history
+    # bindkey -M menuselect '^l' vi-forward-char
+    # bindkey -M menuselect '^k' accept-and-infer-next-history
 }
 
 
@@ -573,3 +577,13 @@ reload() {
     autoload -U $f:t
 }
 
+export PATH="$HOME/.anyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$HOME/.nodenv/bin:$PATH"
+export PATH="$PATH:`yarn global bin`"
+eval "$(anyenv init -)"
+eval "$(pyenv init -)"
+eval "$(direnv hook zsh)"
+eval "$(nodenv init -)"
+source /usr/local/share/zsh/site-functions/_aws

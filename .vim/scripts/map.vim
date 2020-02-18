@@ -9,7 +9,27 @@ if !g:plug.is_installed('mru.vim')
         nnoremap <silent> [Space]j :<C-u>call <SID>MRU_Create_Window()<CR>
         "nnoremap <silent> [Space]j :<C-u>MRU<CR>
     endif
+
+    " comment
+    if g:plug.is_installed('caw.vim') 
+        nmap <C-K> <Plug>(caw:hatpos:toggle)
+        vmap <C-K> <Plug>(caw:hatpos:toggle)
+    endif
+
+    " tree
+    map <C-n> :NERDTreeToggle<CR>
 endif
+
+" command
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+    if 0 == a:0
+        let l:arg = "."
+    else
+        let l:arg = a:1
+    endif
+    execute "%! jq \"" . l:arg . "\""
+endfunction
 
 " Use backslash
 if IsMac()

@@ -11,7 +11,6 @@ else
     set background=dark
 endif
 
-set t_Co=256
 if g:plug.is_installed('solarized.vim') && $TERM_PROGRAM ==# "Apple_Terminal"
     colorscheme jellybeans
 elseif g:plug.is_installed('seoul256')
@@ -19,6 +18,13 @@ elseif g:plug.is_installed('seoul256')
 elseif g:plug.is_installed('hybrid')
     colorscheme hybrid
 endif
+
+" tree
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowHidden=1
+autocmd BufEnter * lcd %:p:h
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " StatusLine {{{1
 set laststatus=2

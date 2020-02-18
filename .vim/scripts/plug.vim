@@ -20,24 +20,31 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     " file and directory
     Plug '/usr/local/opt/fzf'    " file search
     Plug 'junegunn/fzf.vim'    " file search for vim
-    Plug 'justinmk/vim-dirvish'    " filer
     Plug 'tweekmonster/fzf-filemru'    " file history search
+    Plug 'scrooloose/nerdtree'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'scrooloose/nerdtree'
+
+    " doc
+    Plug 'vim-jp/vimdoc-ja'    " doc for japanese
+
+    " editor
     Plug 'tpope/vim-surround'    " insert surround char
     Plug 'tpope/vim-endwise'    " insert scope end char
-    Plug 'Shougo/vimproc.vim',  { 'do': 'make' }    " enabled command
-    Plug 'vim-jp/vimdoc-ja'    " doc for japanese
     Plug 'tyru/caw.vim'    " comment out
-    " Plug 'thinca/vim-quickrun'
-    Plug 'tyru/open-browser.vim'    " for open web    
-    Plug 'tyru/open-browser-github.vim'    " for open github
     Plug has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache'    " auto complete
+    Plug 'plasticboy/vim-markdown',      { 'for': 'markdown' }
+    Plug 'm2mdas/phpcomplete-extended'     " enabled command
+    Plug 'b4b4r07/vim-unicode'
+    Plug 'b4b4r07/vim-sqlfmt'
+    Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+    " util
     Plug 'mattn/webapi-vim'     " for request webapi
+    Plug 'zplug/vim-zplug', { 'for': 'zplug' }
 
     " syntax? language support
-    "Plug 'zaiste/tmux.vim', { 'for': 'tmux' }
-    Plug 'keith/tmux.vim', { 'for': 'tmux' }
-    Plug 'zplug/vim-zplug', { 'for': 'zplug' }
-    Plug 'cespare/vim-toml', { 'for': 'toml' }
+    Plug 'Shougo/vimproc.vim',  { 'do': 'make' }    " enabled command
     Plug 'elzr/vim-json', { 'for': 'json' }
     Plug 'b4b4r07/vim-ltsv', { 'for': 'ltsv' }
     Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
@@ -49,22 +56,12 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     Plug 'w0ng/vim-hybrid'
     Plug 'junegunn/seoul256.vim'
     Plug 'nanotech/jellybeans.vim'
+    Plug 'itchyny/lightline.vim'
 
-    Plug 'plasticboy/vim-markdown',      { 'for': 'markdown' }
-    " Plug 'shawncplus/phpcomplete.vim'
-    Plug 'm2mdas/phpcomplete-extended'     " enabled command
+    " git
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
 
-    Plug 'b4b4r07/vim-unicode'
-    Plug 'b4b4r07/vim-sqlfmt'
-    Plug 'lepture/vim-jinja'
-    Plug 'mattn/gist-vim'
-
-    Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-    Plug 'cocopon/vaffle.vim'
-    Plug 'hotwatermorning/auto-git-diff'
-    Plug 'lambdalisue/vim-gista'
-
-    " Add plugins to &runtimepath
     call plug#end()
 endif
 
