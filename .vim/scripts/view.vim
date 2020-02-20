@@ -18,6 +18,7 @@ elseif g:plug.is_installed('seoul256')
 elseif g:plug.is_installed('hybrid')
     colorscheme hybrid
 endif
+colorscheme tender
 
 " tree
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
@@ -290,6 +291,10 @@ function! s:hl_zenkaku_space()
     highlight! link ZenkakuSpace Error
     syntax match ZenkakuSpace containedin=ALL /　/
 endfunction
+
+" vue
+autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html
+autocmd FileType vue syntax sync fromstart
 
 " __END__ {{{1
 " vim:fdm=marker expandtab fdc=3:

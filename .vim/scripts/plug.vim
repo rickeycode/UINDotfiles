@@ -32,12 +32,26 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     Plug 'tpope/vim-surround'    " insert surround char
     Plug 'tpope/vim-endwise'    " insert scope end char
     Plug 'tyru/caw.vim'    " comment out
-    Plug has('lua') ? 'Shougo/neocomplete.vim' : 'Shougo/neocomplcache'    " auto complete
-    Plug 'plasticboy/vim-markdown',      { 'for': 'markdown' }
-    Plug 'm2mdas/phpcomplete-extended'     " enabled command
     Plug 'b4b4r07/vim-unicode'
     Plug 'b4b4r07/vim-sqlfmt'
     Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+    Plug 'posva/vim-vue'
+
+    Plug 'Shougo/neocomplcache'    " auto complete
+
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+    " let g:deoplete#enable_at_startup = 1
+
+    Plug 'Shougo/neosnippet.vim'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'Shougo/context_filetype.vim'
+    Plug 'osyo-manga/vim-precious'
 
     " util
     Plug 'mattn/webapi-vim'     " for request webapi
@@ -47,9 +61,8 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     Plug 'Shougo/vimproc.vim',  { 'do': 'make' }    " enabled command
     Plug 'elzr/vim-json', { 'for': 'json' }
     Plug 'b4b4r07/vim-ltsv', { 'for': 'ltsv' }
-    Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
-    Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
     Plug 'kylef/apiblueprint.vim'
+    Plug 'sheerun/vim-polyglot'
 
     " colorscheme
     Plug 'b4b4r07/solarized.vim'
@@ -57,6 +70,7 @@ if g:plug.ready() && g:env.vimrc.plugin_on
     Plug 'junegunn/seoul256.vim'
     Plug 'nanotech/jellybeans.vim'
     Plug 'itchyny/lightline.vim'
+    Plug 'jacoborus/tender.vim'
 
     " git
     Plug 'tpope/vim-fugitive'

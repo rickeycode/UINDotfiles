@@ -2,9 +2,6 @@
 " Vim initialize
 "
 
-" Tiny vim
-if 0 | endif
-
 " Use plain vim
 " when vim was invoked by 'sudo' command
 " or, invoked as 'git difftool'
@@ -122,7 +119,7 @@ set secure
 "}}}
 
 
-" __END__ {{{1
+"__END__ {{{1
 " vi:set ts=2 sw=2 sts=2:
 " vim:fdt=substitute(getline(v\:foldstart),'\\(.\*\\){\\{3}','\\1',''):
 " vim:fdm=marker expandtab fdc=3:
