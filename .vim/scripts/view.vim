@@ -296,5 +296,19 @@ endfunction
 autocmd BufNewFile,BufRead *.{html,htm,vue*} set filetype=html
 autocmd FileType vue syntax sync fromstart
 
+" local rc
+augroup vimrc-local
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+    let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+    for i in reverse(filter(files, 'filereadable(v:val)'))
+        source `=i`
+    endfor
+endfunction
+
+
 " __END__ {{{1
 " vim:fdm=marker expandtab fdc=3:
