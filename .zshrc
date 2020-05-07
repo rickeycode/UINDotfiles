@@ -587,3 +587,4 @@ eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
 eval "$(nodenv init -)"
 source /usr/local/share/zsh/site-functions/_aws
+export PATH=$PATH:~/Library/Python/2.7/bin/
