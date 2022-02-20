@@ -582,9 +582,26 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$HOME/.nodenv/bin:$PATH"
 export PATH="$PATH:`yarn global bin`"
+export PATH="/usr/local/bin:$PATH"
 eval "$(anyenv init -)"
 eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
 eval "$(nodenv init -)"
-source /usr/local/share/zsh/site-functions/_aws
+eval "$(rbenv init -)"
+# source /usr/local/share/zsh/site-functions/_aws
 export PATH=$PATH:~/Library/Python/2.7/bin/
+export PATH="$HOME/Documents/Works/git/flutter/bin:$PATH"
+export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+export JAVA_HOME=/Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home
+export PATH="$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/.plenv/bin:$PATH"
+eval "$(plenv init - zsh)"
+export PERL_CPANM_OPT="--local-lib=~/local/lib/perl5"
+export PERL5LIB=$HOME/local/lib/perl5/lib/perl5:$PERL5LIB;
+export PATH="/Users/uin010/Documents/Works/git/tabechoku_ios/node_modules/.bin:$PATH"
+if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+
+# Setup ssh-agent
+if [ -f ~/.ssh-agent ]; then
+    . ~/.ssh-agent
+fi
